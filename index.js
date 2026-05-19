@@ -1,10 +1,16 @@
+const Player = require('./Player');
+const UpNextQueue = require('./UpNextQueue');
+const HistoryStack = require('./historyStack');
+const SongLibrary = require('./SongLibrary');
+
 class SportifyLite {
-    constructor() {
-        this.player = new Player();
-        this.upNextQueue = new Upnext();  
-        this.historyStack = new HistoryStack();
-        this.playlist = [];
-    }
+constructor() {
+    this.player = new Player();
+    this.upNextQueue = new UpNextQueue();
+    this.historyStack = new HistoryStack()
+    this.library = new SongLibrary();
+    this.playlist = [];
+}   
 
     createSong(){
         const song1 = {'title': 'Glory', 'artist': 'Nathaniel Bassey', 'genre': 'Gospel', 'duration': 300};
@@ -20,15 +26,15 @@ class SportifyLite {
 
     buildLibrary(){
         for (let song of this.playlist){
-            this.buildLibrary.addSong(song);
+            this.library.addSong(song);
         }
-        console.log(this.buildLibrary.songs);        
+        console.log(this.library.songs);        
     }
 
     buildPlaylist(){
         for (let i = 0; i < this.playlist.length; i++) {
             this.playlist.addSong(
-                this.song[i].title
+                this.playlist[i].title
             );            
         }
         console.log("5 songs added");        
@@ -36,15 +42,41 @@ class SportifyLite {
 
     LoadPlaylist(){
         this.player.loadPlaylist(
-            this.song[0].title,
-            this.song[1].title,
-            this.song[2].title,
-            this.song[3].title,
-            this.song[4].title,
-            this.song[5].title,
-            this.song[6].title,
-            this.song[7].title
+            this.playlist[0].title,
+            this.playlist[1].title,
+            this.playlist[2].title,
+            this.playlist[3].title,
+            this.playlist[4].title,
+            this.playlist[5].title,
+            this.playlist[6].title,
+            this.playlist[7].title
         );
-        
+        console.log('Player loaded');
+
+        this.player.play(); 
+        player.next();
+        player.next();
+        player.previous();
     }
 }
+const radio = new SportifyLite();
+
+radio.createSong();
+
+const queue = new UpNextQueue();
+
+queue.enqueue(radio.playlist[5].title);
+queue.enqueue(radio.playlist[6].title);
+
+console.log("\n6. Queue added");
+
+const nextSong = queue.dequeue();
+console.log(`Next song: ${nextSong}`);
+radio.historyStack.push(nextSong);
+console.log("Now playing:", nextSong);
+
+console.log("\n8. History:");
+console.log(radio.historyStack.item);
+
+console.log("\nQueue:");
+console.log(queue);

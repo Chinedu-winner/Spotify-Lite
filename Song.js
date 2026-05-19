@@ -11,7 +11,6 @@ class Song {
     }
 }
 
-const song = new Song("Essence", "Wizkid", "Afrobeats", 204);
-
+const song = new Song("Excess Love", "Mercy Chinwo", "Gospel", 230);
 
 console.log(song.describe());

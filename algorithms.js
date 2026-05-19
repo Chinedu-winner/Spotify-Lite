@@ -47,9 +47,17 @@ function findLongestSong(arr) {
     }, null);
 }
 
+    const songs = [ 
+        {title: 'Glory', duration: 240 }, 
+        {title: 'Way Maker', duration: 300}, 
+        {title: 'Odogwu', duration: 280}
+    ];
 module.exports = {
     isPalindrome,
     capitalizeTitle,
     sumDurations,
     findLongestSong,
 };
+
+console.log(sumDurations(songs)); 
+console.log(findLongestSong(songs));

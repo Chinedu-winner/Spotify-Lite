@@ -7,7 +7,7 @@ class Song {
     }
 }
 
-class Songlibrary{
+class SongLibrary{
     constructor(){
         this.length = 0;
         this.item = []; 
@@ -48,7 +48,7 @@ class Songlibrary{
     }
 }
 
-const library = new Songlibrary();
+const library = new SongLibrary();
 
 const song1 = new Song("Essence", "Wizkid", "Afrobeats", 204);
 const song2 = new Song("Baba mi", "BBO", "Gospel", 200);
@@ -57,3 +57,4 @@ library.addsong(song1)
 library.addsong(song2)
 
 console.log(library.item[0]);
+module.exports = SongLibrary;

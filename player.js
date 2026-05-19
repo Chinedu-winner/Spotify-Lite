@@ -73,3 +73,5 @@ player.play();
 player.next();
 player.previous();
 console.log(player.currentSong());
+
+module.exports = Player;

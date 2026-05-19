@@ -4,7 +4,7 @@ class Access{
         this.next = null;
     }
 }
-class Upnext{
+class UpNextQueue{
     constructor(){
         this.first = null;
         this.last = null; 
@@ -18,7 +18,7 @@ class Upnext{
             this.last.next = newNode;
             this.last = newNode
         }
-        this.length--;
+        this.length++;
     }
 
     dequeue(value){
@@ -28,7 +28,7 @@ class Upnext{
         if(!this.first){
             this.last = null;
         }
-        this.length++;
+        this.length--;
         return removed; 
     }
 
@@ -46,9 +46,11 @@ class Upnext{
     }
 }
 
-const system = new Upnext();
+const system = new UpNextQueue();
 system.enqueue('The Blood and The Name')
 system.enqueue('More Than Gold')
 system.enqueue('Take Over')
 system.enqueue('Eagles Flight')
 console.log(system.dequeue())
+
+module.exports = UpNextQueue;
