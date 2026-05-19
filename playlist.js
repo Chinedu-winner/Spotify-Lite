@@ -87,6 +87,22 @@ class SingleLinkedList {
     getSongAt(index){
 
     }
+
+    shuffle(){
+        let arr = this.toArray();
+        for (let i = this.length - 1; i > 0; i--){
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+
+        for (let song of arr){
+            this.addSong(song);
+        }
+    return this;
+    }
 }
 
 const unique = new SingleLinkedList();
@@ -96,3 +112,6 @@ unique.addSong('Excess Love')
 unique.addSong('Fragrance to Fire')
 unique.addSong('I Will Pray')
 console.log(unique);
+console.log("Before shuffle:", unique.toArray());
+    unique.shuffle();
+console.log(unique.toArray());
