@@ -1,3 +1,5 @@
+const { isPalindrome } = require("./algorithms");
+
 class Song {
     constructor(title, artist, genre, duration) {
         this.title = title;
@@ -80,19 +82,38 @@ class Songlibrary{
         this.item = uniqueSongs;
         return this.item;
     }
+
+    findPalindromeTitles(){
+        const palindromes = [];
+        for(let song of this.item){
+            if (isPalindrome(song.title)) {
+                palindromes.push(song);
+            }
+        }
+        return palindromes;
+    }
 }
 
 const library = new Songlibrary();
 
 const song1 = new Song("Essence", "Wizkid", "Afrobeats", 204);
 const song2 = new Song("Baba mi", "BBO", "Gospel", 200);
+const song3 = new Song("Odogwu", "Burna", "Afrobeats", 180);
+const song4 = new Song("Race Car", "Davido", "Afrobeats", 190);
+const song5 = new Song("Eagles Flight", "Fireboy", "Afrobeats", 220);
+const song6 = new Song("Madam", "Fireboy", "Afrobeats", 220);
 
 library.addsong(song1)
 library.addsong(song2)
+library.addsong(song3)  
+library.addsong(song4)
+library.addsong(song5)
+library.addsong(song6) 
 console.log("Before:", library.item);
 console.log("After:", library.sortByDuration());
 console.log("After", library.searchbyTitle("Essence")); 
 console.log("remove", library.removeDuplicate());
 
-
 console.log(library.item[0]);
+
+console.log(library.findPalindromeTitles());

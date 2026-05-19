@@ -85,8 +85,18 @@ class SingleLinkedList {
     }
 
     getSongAt(index){
-
+        if (index < 0 || index >= this.length){
+            return null
+        };
+        let current = this.head;
+        let counter = 0;
+        while (counter < index) {
+            current = current.next;
+            counter++;
+        }
+        return current.value;
     }
+
 
     shuffle(){
         let arr = this.toArray();
@@ -103,6 +113,25 @@ class SingleLinkedList {
         }
     return this;
     }
+
+    reverseRecursive(){
+   const reverseNode = (node) => {
+        if (!node || !node.next) {
+            this.head = node;
+            return node;
+        }
+
+        let newHead = reverseNode(node.next);
+
+        node.next.next = node;
+
+        node.next = null;
+
+        return newHead;
+    };
+
+    this.tail = this.head;
+    }
 }
 
 const unique = new SingleLinkedList();
@@ -111,7 +140,12 @@ unique.addSong('Daddy Wey Dey Pampe')
 unique.addSong('Excess Love')
 unique.addSong('Fragrance to Fire')
 unique.addSong('I Will Pray')
-console.log(unique);
-console.log("Before shuffle:", unique.toArray());
+
+    console.log(unique);
+    console.log("Before shuffle:", unique.toArray());
     unique.shuffle();
-console.log(unique.toArray());
+    console.log(unique.toArray());
+
+    console.log("Before recursive reverse:", unique.toArray());
+    unique.reverseRecursive();
+    console.log("After recursive reverse:", unique.toArray());

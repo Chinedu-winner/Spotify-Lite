@@ -45,6 +45,12 @@ function findLongestSong(arr) {
 
         return longest;
     }, null);
+
+    function isPanlindrome(str){
+        let cleaned = str.toLowerCase().replace(/\s+/g, "");
+        let reverse = cleaned.split("").reverse().join("");
+        return cleaned === reverse;
+    }
 }
 
     const songs = [ 
@@ -52,6 +58,7 @@ function findLongestSong(arr) {
         {title: 'Way Maker', duration: 300}, 
         {title: 'Odogwu', duration: 280}
     ];
+
 module.exports = {
     isPalindrome,
     capitalizeTitle,
