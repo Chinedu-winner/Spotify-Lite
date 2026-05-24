@@ -9,7 +9,7 @@ class Song {
     }
 }
 
-class Songlibrary{
+class SongLibrary{
     constructor(){
         this.length = 0;
         this.item = []; 
@@ -92,9 +92,34 @@ class Songlibrary{
         }
         return palindromes;
     }
+
+    reverseRecursive(){
+        const reverse = (arr) =>{
+            if (arr.length <= 1) {
+                return arr
+            }
+        return [arr[arr.length -1]].concat(
+            reverse(arr.slice(0, arr.length - 1))
+        )
+        }  
+        this.item = reverse(this.item);
+        return this;
+    }
+
+    topNlongest(){
+        const top = [];
+        for(let song of this.item){
+            top.push(song);
+            top.sort((a, b) => b.duration - a.duration);
+            if (top.length > 5){
+                top.pop();
+            }
+        }
+        return top;  
+    }
 }
 
-const library = new Songlibrary();
+const library = new SongLibrary();
 
 const song1 = new Song("Essence", "Wizkid", "Afrobeats", 204);
 const song2 = new Song("Baba mi", "BBO", "Gospel", 200);
@@ -113,7 +138,10 @@ console.log("Before:", library.item);
 console.log("After:", library.sortByDuration());
 console.log("After", library.searchbyTitle("Essence")); 
 console.log("remove", library.removeDuplicate());
+console.log(library.topNlongest(2));
 
 console.log(library.item[0]);
+console.log("remove", library.reverseRecursive());
 
 console.log(library.findPalindromeTitles());
+module.exports = SongLibrary; 

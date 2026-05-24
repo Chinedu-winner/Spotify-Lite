@@ -1,7 +1,7 @@
 class Playlist{
     constructor(song) {
         this.value = song;
-        this.next = null;
+        this.next = null; 
     }
 }
 
@@ -10,6 +10,11 @@ class SingleLinkedList {
         this.head = null;
         this.tail = null;
         this.length = 0; 
+        this.prev = null;
+        this.repeat = false;
+        this.length = 0;
+
+        this.undoStack = [];
     }
 
     addSong(song){
@@ -17,11 +22,51 @@ class SingleLinkedList {
         if(!this.head){
             this.head = newSong;
             this.tail = newSong;
+            this.current = newSong;
         }else{
+            newSong.prev = this.tail;
             this.tail.next = newSong;
             this.tail = newSong;
         }
         this.length++
+    }
+
+    enableRepeat(){
+        this.repeat = true; 
+        this.tail.next = this.head;
+        this.head.prev = this.tail; 
+    }
+
+    disableRepeat(){
+        this.repeat = false;
+        this.tail.next = null;
+        this.head.prev = null;
+    }
+
+    next(){
+        this.undoStack.push(this.current);
+
+        if(this.current.next){
+            this.current = this.current.next;
+        }
+        return this.current.value; 
+    }
+
+    previous(){
+        this.undoStack.push(this.current);
+
+        if(this.current.prev){
+            this.current = this.current.prev;
+        }
+        return this.current.value;
+    }
+
+    undo(){
+        if(this.undoStack.length === 0){
+            return "Nothing to undo"
+        }
+        this.current = this.undoStack.pop();
+        return this.current.value;
     }
 
     insertAtIndex(idx, song){
@@ -97,6 +142,18 @@ class SingleLinkedList {
         return current.value;
     }
 
+    hasCycle(){
+        let slow = this.head;
+        let fast = this.head;
+        while (fast !== null && fast.next !== null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow === fast) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     shuffle(){
         let arr = this.toArray();
@@ -115,22 +172,21 @@ class SingleLinkedList {
     }
 
     reverseRecursive(){
-   const reverseNode = (node) => {
+    const reverseNode = (node) => {
         if (!node || !node.next) {
             this.head = node;
             return node;
         }
 
-        let newHead = reverseNode(node.next);
-
+        reverseNode(node.next);
         node.next.next = node;
-
+        node.prev = node.next;
         node.next = null;
-
-        return newHead;
     };
 
     this.tail = this.head;
+    reverseNode(this.head);
+    return this;
     }
 }
 
@@ -149,3 +205,14 @@ unique.addSong('I Will Pray')
     console.log("Before recursive reverse:", unique.toArray());
     unique.reverseRecursive();
     console.log("After recursive reverse:", unique.toArray());
+
+    unique.enableRepeat(); 
+    console.log(unique.hasCycle()); 
+
+    console.log(unique.next());
+    
+    unique.current = unique.head;
+    console.log("current", unique.current.value);
+    
+    console.log("Next", unique.next());
+    console.log("Next", unique.undo());

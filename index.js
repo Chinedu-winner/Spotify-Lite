@@ -54,9 +54,9 @@ constructor() {
         console.log('Player loaded');
 
         this.player.play(); 
-        player.next();
-        player.next();
-        player.previous();
+        this.player.next();
+        this.player.next();
+        this.player.previous();
     }
 }
 const radio = new SportifyLite();
